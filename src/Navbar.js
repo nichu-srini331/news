@@ -13,7 +13,7 @@ function Navbar() {
     <div className='container-fluid'>
       <div className='row'>
         <div className='col-auto min-vh-100 navclass'>
-        <h1 className='h1-nav'>NEWS X.</h1>
+        <h1 className='h1-nav'>NEW X.</h1>
           <ul className='ul-nav'>
             
             <li className='li-nav'>

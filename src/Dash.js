@@ -7,18 +7,28 @@ import Breaking from './Breaking';
 import Weather from './Weather';
 
 function Dash() {
-  const[lat,setlat] = useState([])
+  const[lat,setlat] = useState()
   const[latest,setlatest] = useState([])
   const [title,settitle] = useState([])
   const[desc,setdesc] = useState([])
   const[link,setlink] = useState([])
 
-
+  const options = {
+    method: 'POST',
+    headers: {
+      'X-RapidAPI-Key': '92166a028dmsh4621354f2ec3326p175a10jsn5d830c1c2bc2',
+      'X-RapidAPI-Host': 'andruxnet-random-famous-quotes.p.rapidapi.com'
+    }
+  };
   useEffect(()=>{
 
-    fetch("https://newsdata.io/api/1/news?apikey=pub_13656bb97e2c535e8bcc4b82692c762c305c9&language=en&country=in").then((res)=>res.json()).then((j)=>{setlat(j.result)
-    fetch("https://goquotes-api.herokuapp.com/api/v1/random?count=1").then((res)=>res.json()).then((j)=>setlatest(j.quotes[0]))
- 
+    fetch("https://newsdata.io/api/1/news?apikey=pub_1383934ee69ea6270d0ad7efc8d908a5dfdc7&language=en&country=in").then((res)=>res.json()).then((j)=>{console.log(j.results[0]);setlat(j.results)
+
+    
+    fetch('https://type.fit/api/quotes')
+      .then(response => response.json())
+      .then(response => setlatest(response[0].text))
+
   })
    
 },[])
@@ -26,12 +36,12 @@ function Dash() {
 // const get1 = async() => {
  
 //   console.log(latest)
-//   console.log(lat)
+  console.log(lat)
 
 
 
-  if(lat){
-      return (
+  if (!lat) return null;
+  else return (
 
         <div className='container-fluid'>
           <div className='row'>
@@ -43,7 +53,7 @@ function Dash() {
                 <div className='col-6'>
                 <input class="form-control ser-in" type="search" placeholder="Search" aria-label="Search"/>
           <button class="btn btn-dash" type="submit">Search</button></div>
-          <div className='col-3 wet-col'><Weather/></div>
+          <div className='col-3 wet-col'>Weather<Weather/></div>
           
           
                 </div>
@@ -51,10 +61,10 @@ function Dash() {
               <div className='div-quote'>
     <h2>Quote of the Day...</h2>
     <br></br>
-    <h5>{latest.text}
+    <h5>{latest}
     </h5>
     </div>
-    
+
         </div>
               <div className='row'>        
               <div class="row trend-r">
@@ -66,7 +76,7 @@ function Dash() {
             <img src={lat[0].urlToImage}/>
             <p class="card-text">{lat[0].description}</p>
             <a href="#" class="btn btn-primary">Go somewhere</a>
-            <a href="/chat" class="btn btn-primary">See Chat</a>
+            <a href="/chat" class="btn btn-primary">Discuss</a>
           </div>
         </div>
       </div>
@@ -77,6 +87,7 @@ function Dash() {
             <img src={lat[1].urlToImage}/>
             <p class="card-text">{lat[1].description}</p>
             <a href="#" class="btn btn-primary">Go somewhere</a>
+            <a href="/chat" class="btn btn-primary">Discuss</a>
           </div>
         </div>
       </div>
@@ -87,6 +98,7 @@ function Dash() {
              <img src={lat[2].urlToImage}/>
             <p class="card-text">{lat[2].description}</p>
             <a href="#" class="btn btn-primary">Go somewhere</a>
+            <a href="/chat" class="btn btn-primary">Discuss</a>
           </div>
         </div>
       </div>
@@ -98,7 +110,7 @@ function Dash() {
           
         </div>
       )
-      }
+      
     }    
   
 
